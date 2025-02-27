@@ -1,33 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react';
+import { Cart } from './features/cart/Cart';
+import { currencyFilter } from './features/filters/filters';
+import { Inventory } from './features/inventory/Inventory';
 import './App.css'
+import { inventoryData } from './features/inventory/data';
 
-function App() {
-  const [count, setCount] = useState(0)
 
+function App(props: any) {
+
+  const { state, dispatch } = props;
+  
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='mainApp'>
+        <p>Infinity Store</p>
+        <div id='featured-outfits'></div>
+
+        <Inventory 
+          inventory={state.inventory}
+          currencyFilter={'USD'}
+          
+          // currencyFilter={state.currencyFilter}
+          searchTerm={""}
+          dispatch={dispatch}
+        />
+
+        <Cart 
+          cart={state.cart}
+          currencyFilter={'USD'}
+          // currencyFilter={state.currencyFilter}
+          dispatch={dispatch}
+        />
+
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+     
     </>
   )
 }

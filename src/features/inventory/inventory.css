@@ -1,0 +1,30 @@
+#inventory-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: lightblue;
+    width: 100%;
+    height: auto;
+}
+
+.item {
+    width: 20rem;
+    background-color: lightpink;
+    border: 2px solid red;
+    padding: 1rem;
+}
+
+.item-name {
+    font-size: 1.5rem;
+}
+
+.item img {
+    width: 100%;
+}
+
+h3 {
+
+}
+
+.price {
+    font-weight: 800;
+}
