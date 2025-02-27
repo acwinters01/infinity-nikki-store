@@ -28,30 +28,39 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
     };
 
     if (inventory.length === 0) {
-        return <p id="all-products-sold-label">SOLD OUT!</p>
+        return <p id="all-products-sold-label">Sorry we don't have anything to show just yet.</p>
     }
 
     const filteredItems = getFilteredItems(inventory, searchTerm);
 
+    const randomizeItems = (inventory: Item[]) => {
+        return [...inventory.sort(() => Math.random() - 0.5)]
+    }
+
     return (
         <ul id="inventory-container">
-           {filteredItems.map(createInventoryItem)}
+           {randomizeItems(filteredItems).map(createInventoryItem)}
         </ul>
     );
 
     function createInventoryItem(inventoryItem: Item) {
-        const { id, price, name, img, style } = inventoryItem;
+        const { id, price, name, img, style, labels, quantity } = inventoryItem;
         const displayPrice = calculatePrice(price, currencyFilter);
 
         return (
             <li key={id} className='item'>
                 <img src={img} alt={''}/>
                 <h3 className='item-name'>{name}</h3>
+                <div className='labels'>
+                    <h4>{style}</h4>
+                    <p>{labels.map(label => `${label} `)}</p>
+                </div>
                 <h3 className='price'>
-                    {getCurrencySymbol(currencyFilter)}
-                    {displayPrice.toFixed(2)} {currencyFilter}
+                    {quantity > 0
+                    ? `${getCurrencySymbol(currencyFilter)} ${displayPrice.toFixed(2)} ${currencyFilter}`
+                    : <p id='sold-out'>SOLD OUT</p>}
                 </h3>
-                <h4 className='style-text'>{style}</h4>
+                
                 <button
                     onClick={() => handleOnClick(inventoryItem)}
                     className='add-to-cart-button'

@@ -42,7 +42,7 @@ export const Cart = (props: any) => {
         }
 
         return (
-            <li key={name}>
+            <li id="cart-item" key={name}>
                 <p>{name}</p>
 
                 <select 

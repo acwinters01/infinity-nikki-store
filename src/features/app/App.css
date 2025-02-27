@@ -1,0 +1,34 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mainApp {
+  border: 2px solid black;
+  width: 100%;
+  height: 100%;
+}
+
+#header {
+  width: 100%;
+}
+
+.featured-outfits {
+  width: 100%;
+  border: 2px solid orange
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+#all-tabs {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 1.125rem
+}

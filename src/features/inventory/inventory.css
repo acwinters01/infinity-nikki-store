@@ -1,9 +1,23 @@
 #inventory-container {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     background-color: lightblue;
     width: 100%;
     height: auto;
+}
+
+h3 {
+    font-size: 1rem;
+}
+
+.price {
+    font-weight: 800;
+}
+
+.labels {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .item {
@@ -11,6 +25,7 @@
     background-color: lightpink;
     border: 2px solid red;
     padding: 1rem;
+    margin: .5rem;
 }
 
 .item-name {
@@ -19,12 +34,16 @@
 
 .item img {
     width: 100%;
+    height: auto;
+    border-radius: .5rem;
+    padding: .25rem;
 }
 
-h3 {
+#sold-out {
+    font-weight: 900;
+    color: red;
+    font-size: 1.5rem;
 
 }
 
-.price {
-    font-weight: 800;
-}
+
