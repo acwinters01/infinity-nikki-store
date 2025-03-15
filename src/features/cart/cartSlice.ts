@@ -34,38 +34,3 @@ export const cartSlice = createSlice({
 export const { addItem, changeItemQuantity } = cartSlice.actions;
 // Reducer
 export default cartSlice.reducer;
-
-
-// export const cartReducer = (cart: Record<string, CartItem> = initialCart, action: any) => {
-//     switch(action.type) {
-//         case 'case/addItem': {
-//             const { name, price } = action.payload;
-//             const quantity: number = cart[name] ? cart[name].quantity + 1 : 1;
-//             const newItem = { price, quantity };
-
-//             return {
-//                 ...cart,
-//                 [name] : newItem
-//             };
-//         }
-
-//         case 'cart/changeItemQuantity': {
-//             const {name, newQuantity } = action.payload;
-//             const itemsToUpdate = cart[name];
-
-//             const updatedItem = {
-//                 ...itemsToUpdate,
-//                 quantity: newQuantity
-//             };
-
-//             return {
-//                 ...cart,
-//                 [name]: updatedItem
-//             };
-//         }
-
-//         default: {
-//             return cart;
-//         }
-//     }
-// }
