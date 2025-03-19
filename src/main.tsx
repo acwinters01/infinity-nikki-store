@@ -1,5 +1,6 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client'
+import { Provider } from 'react-redux';
 import App from './features/app/App'
 import { store } from './store';
 import './utilities/reset.css'
@@ -17,10 +18,12 @@ const render = () => {
 
   root.render(
     <StrictMode>
-      <App 
-        state={store.getState()}
-        dispatch={store.dispatch}
-      />
+      <Provider store={store}>
+        <App
+          state = {store.getState()}
+          dispatch = {store.dispatch}
+        />
+      </Provider>
     </StrictMode>
   )
 };

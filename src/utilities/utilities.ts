@@ -1,3 +1,15 @@
+export interface Item {
+    id: number;
+    name: string;
+    price: number;
+    quantity: number;
+    description: string;
+    type: string;
+    style: string;
+    labels: string[];
+    img: string;
+};
+
 export const calculatePrice = (price: number, currency: string) => {
     switch(currency) {
         case 'CAD': // Canadian Dollar
@@ -50,22 +62,16 @@ export const getCurrencySymbol = (currencyFilter: string) => {
     }
 }
 
+export const getFilteredItems = (items: any, searchTerm: string): Item[] => {
+    if (!searchTerm) return items;
 
-export type Item = {
-    id: number;
-    name: string;
-    price: number;
-    quantity: number;
-    description: string;
-    type: string;
-    style: string;
-    labels: string[];
-    img: string;
+    return items.filter((item: any) => {
+        const nameMatch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+        const outfitMatch = item.outfit ? item.outfit.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+        return nameMatch || outfitMatch
+    })
 };
 
-export const getFilteredItems = (items: Item[], searchTerm: string) => {
-    return items.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()))
-}
 
 export const getTotal = (cart: Record <string, Item>, currency: string) => {
     let totalUSD = 0;

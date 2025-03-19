@@ -2,35 +2,40 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Item } from "../../utilities/utilities";
 
 // Defining the type for the cart Items. x
-type CartItem = Item;
+interface CartState {
+    [name: string]: Item;
+}
 
-const initialState: Record<string, CartItem> = {};
+const initialState: CartState = {};
 
 export const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        addItem: (state, action: PayloadAction<CartItem>) => {
-            const { name, price, quantity } = action.payload;
+        addItem: (state, action: PayloadAction<Item>) => {
+            const { name } = action.payload;
 
-            if(state[name]) {
-                state[name].quantity += 1;
-            } else {
-                state[name] = {...action.payload, quantity: 1 };
+            return {
+                ...state,
+                [name] : state[name]
+                ? {...state[name], quantity: state[name].quantity + 1 }
+                : { ...action.payload, quantity: 1 },
             }
-
         },
-        changeItemQuantity: (state, action: PayloadAction<{name: string, newQuantity: number}>) => {
+
+        changeItemQuantity: (state, action: PayloadAction<{ name: string, newQuantity: number }>) => {
             const {name, newQuantity } = action.payload;
 
-            if (state[name]) {
-                state[name].quantity = newQuantity;
+            if (!state[name]) return state;
+            
+            return {
+                ...state,
+                [name]: { ...state[name], quantity: newQuantity}
             }
         },
     },
 });
 
-// Actions
-export const { addItem, changeItemQuantity } = cartSlice.actions;
-// Reducer
-export default cartSlice.reducer;
+
+export const { addItem, changeItemQuantity } = cartSlice.actions; // Actions
+export default cartSlice.reducer; // Reducer

@@ -6,13 +6,16 @@ import { addItem } from '../cart/cartSlice';
 import './inventory.css'
 
 
+
 type InventoryProps = {
     inventory: Item[];    
     currencyFilter: string;  
     dispatch?: any;  
     searchTerm: string;
 };
-  
+
+
+
 export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter, dispatch, searchTerm }) => {
     let isSoldOut = false;
 
@@ -23,6 +26,7 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
     }, [dispatch])  
 
     const handleOnClick = (inventoryItem: Item) => {
+
         if (!isSoldOut) {
             dispatch(addItem(inventoryItem));
         } else {
@@ -30,9 +34,7 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
                 <h4>Sorry this item is sold out. Come back later!
                 </h4>
             </div>
-        }
-       
-
+        } 
     };
 
     if (inventory.length === 0) {
@@ -47,7 +49,7 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
 
     return (
         <ul id="inventory-container">
-           {randomizeItems(filteredItems).map(createInventoryItem)}
+           {filteredItems.map(createInventoryItem)}
         </ul>
     );
 

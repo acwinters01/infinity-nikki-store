@@ -60,7 +60,7 @@ export const inventoryData = [
     { id: 58, name: "Midday Sun", price: 91.97, quantity: 10, description: "Outstretch your arms, face the sun in the sky, and feel its intense and scorching light.", type: "Outerwear", style: "Elegant", labels: ["Warm", "Retro"], img: "./src/assets/nikkiClothing/Outerwear/MiddaySun_Outerwear.png", outfit: "" },
     { id: 59, name: "Sweet Metal", price: 80.99, quantity: 10, description: "Immersed in the wild and unruly rhythm of rock music, the pendant on her chest swings in time with the beat.", type: "Neckwear", style: "Sexy", labels: ["Fashion", "Cute"], img: "./src/assets/nikkiClothing/Neckwear/SweetMetal_Neckwear.png", outfit: "" },
     { id: 60, name: "Wishful Pact", price: 36.99, quantity: 10, description: "A skirt commemorating the first encounter between Florawish residents and the Faewish Sprites, designed after extensive tuning to replicate the Sprites' skin tone, which reflects the color of the starry night sky.", type: "Bottoms", style: "Elegant", labels: ["Romance"], img: "./src/assets/nikkiClothing/Bottoms/WishfulPact_Bottoms.png", outfit: "" },
-]
+];
 
 export const currenciesData = ['USD', 'EUR', 'CAD', 'JPY', 'AUD', 'CNY', 'INR', 'GHS'];
 
@@ -70,4 +70,4 @@ export const styleLabels = [
     { name: "Cool", url: "./src/assets/labels/Cool_Icon.png" },
     { name: "Fresh", url: "./src/assets/labels/Fresh_Icon.png" },
     { name: "Sexy", url: "./src/assets/labels/Sexy_Icon.png" },
-]
+];

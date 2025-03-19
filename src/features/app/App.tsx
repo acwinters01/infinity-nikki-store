@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Cart } from '../cart/Cart';
-import { currencyFilter } from '../filters/filters';
 import { Inventory } from '../inventory/Inventory';
+import { SearchTerm } from '../searchTerm/SearchTerm';
+import { currencyFilter } from '../filters/filtersSlice';
 import './App.css'
-import { inventoryData } from '../inventory/data';
 
 
 function App(props: any) {
@@ -28,13 +28,16 @@ function App(props: any) {
           </div>
         </div>
 
-
+        <SearchTerm 
+          searchTerm={state.searchTerm}
+          dispatch={dispatch}
+        />
+        
         <Inventory 
           inventory={state.inventory}
           currencyFilter={'USD'}
-          
           // currencyFilter={state.currencyFilter}
-          searchTerm={""}
+          searchTerm={state.searchTerm}
           dispatch={dispatch}
         />
 
