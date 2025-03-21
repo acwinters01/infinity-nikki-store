@@ -14,7 +14,6 @@ export const cartSlice = createSlice({
     reducers: {
         addItem: (state, action: PayloadAction<Item>) => {
             const { name } = action.payload;
-
             return {
                 ...state,
                 [name] : state[name]
@@ -25,7 +24,6 @@ export const cartSlice = createSlice({
 
         changeItemQuantity: (state, action: PayloadAction<{ name: string, newQuantity: number }>) => {
             const {name, newQuantity } = action.payload;
-
             if (!state[name]) return state;
             
             return {

@@ -1,23 +1,30 @@
 import React from 'react';
-import { getCurrencySymbol, getTotal } from '../../utilities/utilities';
+import { getCurrencySymbol, getTotal, Item } from '../../utilities/utilities';
 import { changeItemQuantity } from './cartSlice';
+
 import './cart.css'
 
-export const Cart = (props: any) => {
-    const {cart, currencyFilter, dispatch } = props;
 
+type CartProps = {
+    cart: Item[];    
+    currencyFilter: string;  
+    dispatch?: any;  
+};
+
+export const Cart: React.FC<CartProps> =  ({cart, currencyFilter, dispatch})=> {
     const onInputHandler = (name: string, input: string) => {
-
         if (input === '') {
             return;
         }
+
         const newQuantity = Number(input);
         dispatch(changeItemQuantity({name, newQuantity}));
-    }
+    };
 
-    const cartElements = Object.keys(cart).map((itemName =>
-        createCartItem(itemName)
-    ))
+
+// Assuming 'cart' is an object where keys are item identifiers
+    const cartElements = Object.values(cart).map((item: Item) => createCartItem(item));
+
 
     const total = getTotal(cart, currencyFilter);
 
@@ -34,25 +41,22 @@ export const Cart = (props: any) => {
     );
 
 
-    function createCartItem(name: string) {
-        const item = cart[name];
-
+    function createCartItem(item: Item) {
         if(item.quantity === 0) {
-            return;
+            return null;
         }
 
         return (
-            <li id="cart-item" key={name}>
-                <p>{name}</p>
-
+            <li id="cart-item" key={item.id}>
+                <p>{item.name}</p>
                 <select 
                     className='item-quantity'
                     value={item.quantity}
                     onChange={(e) => {
-                        onInputHandler(name, e.target.value);
+                        onInputHandler(item.name, e.target.value);
                     }}
                 >
-                    {[...Array(100).keys()].map((_, index) => (
+                    {[...Array(item.stock+1).keys()].map((_, index) => (
                         <option key={index} value={index}>
                             {index}
                         </option>

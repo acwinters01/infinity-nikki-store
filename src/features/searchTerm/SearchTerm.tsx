@@ -19,7 +19,6 @@ export const SearchTerm = (props: any) => {
     }
 
     return (
-
         <div id="searchbar-container">
             <input 
                 id="search"

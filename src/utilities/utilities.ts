@@ -3,6 +3,7 @@ export interface Item {
     name: string;
     price: number;
     quantity: number;
+    stock: number,
     description: string;
     type: string;
     style: string;
@@ -73,11 +74,18 @@ export const getFilteredItems = (items: any, searchTerm: string): Item[] => {
 };
 
 
-export const getTotal = (cart: Record <string, Item>, currency: string) => {
-    let totalUSD = 0;
-    Object.keys(cart).forEach((itemName: string) => {
-        totalUSD += cart[itemName].price * cart[itemName].quantity;
-    });
-
-    return calculatePrice(totalUSD, currency).toFixed(2);
+export const getTotal = (cart: Item[], currency: string): number => {
+    // Had to figure out how to do this with minimal code. Using reduce sums the total price from each cart item.
+    const totalUSD = Object.values(cart).reduce((sum, item) => sum + item.price * item.quantity, 0);
+    return parseFloat(calculatePrice(totalUSD, currency).toFixed(2));
 }
+
+export const currenciesData = ['USD', 'EUR', 'CAD', 'JPY', 'AUD', 'CNY', 'INR', 'GHS'];
+
+export const styleLabels = [
+    { name: "Sweet", url: "./src/assets/labels/Sweet_Icon.png" },
+    { name: "Elegant", url: "./src/assets/labels/Elegant_Icon.png" },
+    { name: "Cool", url: "./src/assets/labels/Cool_Icon.png" },
+    { name: "Fresh", url: "./src/assets/labels/Fresh_Icon.png" },
+    { name: "Sexy", url: "./src/assets/labels/Sexy_Icon.png" },
+];

@@ -12,7 +12,7 @@ h3 {
 }
 
 .price {
-    margin-top: .5rem;
+    margin: .5rem;
     font-weight: 800;
 }
 
@@ -24,6 +24,8 @@ h3 {
 
 .item {
     position: relative;
+    display: flex;
+    flex-direction: column;
     width: 17rem;
     background-color: lightpink;
     border: 2px solid red;
@@ -33,6 +35,22 @@ h3 {
 
 .item-name {
     font-size: 1.5rem;
+}
+
+.add-to-cart-button-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+#item-pricing-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+#add-to-cart-button {
+    border-color: white;
 }
 
 #item-image {
@@ -85,5 +103,6 @@ h3 {
     padding: .25rem .5rem;
     background-color: white;
     border-top-left-radius: .5rem;
-
 }
+
+

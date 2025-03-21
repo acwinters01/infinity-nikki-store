@@ -1,6 +1,3 @@
-import { inventoryData } from "../inventory/data";
-
-
 export const currencyFilter = () => {
 
 };

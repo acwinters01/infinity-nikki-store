@@ -1,0 +1,37 @@
+
+
+/* Currency Filter */
+.currency-filter-container {
+    display: flex;
+    width: 25%;
+    justify-content: space-between;
+}
+
+
+/* Clothing Filters */
+.filters-dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    margin: .75rem;
+    text-align: left;
+}
+
+.filters-dropdown-menu h4 {
+    margin-top: .5rem;
+}
+
+.input-container {
+    display: block;
+}
+
+.label-container {
+    display: flex;
+    width: 5rem;
+    text-wrap: nowrap;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+input {
+    margin-right: .5rem;
+}

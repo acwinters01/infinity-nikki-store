@@ -18,7 +18,6 @@ export const inventorySlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        
         builder
             .addCase(fetchInventory.pending, (state) => {
                 console.log('Fetching inventory...')
