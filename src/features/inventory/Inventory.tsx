@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { calculatePrice, getCurrencySymbol, getFilteredItems, Item } from '../../utilities/utilities';
 import { styleLabels } from './data';
-import { loadData } from '../inventory/inventorySlice';
+import { fetchInventory } from '../inventory/inventorySlice';
 import { addItem } from '../cart/cartSlice';
 import './inventory.css'
 
@@ -15,14 +15,11 @@ type InventoryProps = {
 };
 
 
-
 export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter, dispatch, searchTerm }) => {
     let isSoldOut = false;
 
     useEffect(() => {
-        if (dispatch) {
-            dispatch(loadData())
-        }
+        dispatch(fetchInventory())
     }, [dispatch])  
 
     const handleOnClick = (inventoryItem: Item) => {
@@ -43,10 +40,6 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
 
     const filteredItems = getFilteredItems(inventory, searchTerm);
 
-    const randomizeItems = (inventory: Item[]) => {
-        return [...inventory.sort(() => Math.random() - 0.5)]
-    }
-
     return (
         <ul id="inventory-container">
            {filteredItems.map(createInventoryItem)}
@@ -55,7 +48,8 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
 
     function createInventoryItem(inventoryItem: Item) {
         const { id, price, name, img, style, labels, quantity, type } = inventoryItem;
-        const displayPrice = calculatePrice(price, currencyFilter);
+        const displayPrice = Number(calculatePrice(price, currencyFilter));
+        //console.log("displayPrice:", displayPrice, typeof displayPrice);
         let priceContent;
         let styleImgUrl = '';
 
@@ -76,15 +70,14 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
         if (style) {
             styleLabels.find((label) => label.name === style ? styleImgUrl = label.url : null)
         }
-
         return (
             <li key={id} className={`item`} id={`${isSoldOut ? 'sold' : null}`}>
                 <h3 className='item-name'>{name}</h3>
                 <div className='labels'>
                     <img id="style-tag" src={`${styleImgUrl}`} />
-                    {labels.map(label => label === '' ? null : <>{label} </>)}
+                    {labels.map((label, index) => label === "" ? null : <span key={index}>{label} </span>)}
                 </div>
-                <img id='item-image' src={img} alt={''}/>
+                <img id='item-image' src={img} alt={style}/>
                 
                 <h3 className='price'>
                     {priceContent}
@@ -92,7 +85,6 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
                      
                 </h3>
                 <p id="type-label">{type}</p>
-                
                 <button
                     onClick={() => handleOnClick(inventoryItem)}
                     className='add-to-cart-button'

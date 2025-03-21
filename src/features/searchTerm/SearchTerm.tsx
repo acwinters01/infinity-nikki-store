@@ -21,7 +21,6 @@ export const SearchTerm = (props: any) => {
     return (
 
         <div id="searchbar-container">
-            <img id="search-icon" alt='' src={searchIcon}/>
             <input 
                 id="search"
                 type="text"
@@ -38,6 +37,8 @@ export const SearchTerm = (props: any) => {
                     <img src={clearIcon} alt="" />
                 </button>
             )}
+
+            <img id="search-icon" alt='' src={searchIcon}/>
         </div>
     );
 }

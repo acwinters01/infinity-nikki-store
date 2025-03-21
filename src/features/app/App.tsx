@@ -14,17 +14,17 @@ function App(props: any) {
     <>
       <div className='mainApp'>
         <div id="header">
-          <p>Infinity Store</p>
+          <p id='title-page'>Infinity Store</p>
+          <div className='tabs-container'>
+              <ul id='all-tabs'>
+                <li id="tab">Clothing</li>
+                <li id="tab">Outfit</li>
+                <li id="tab">Makeup</li>
+                <li id="tab">Eureka</li>
+              </ul>
+          </div>
           <div className='featured-outfits'>
             <img src='./src/assets/featuredBanners/featuredOutfit-WishfulAurosa1.png'/>
-          </div>
-          <div className='tabs-container'>
-            <ul id='all-tabs'>
-              <li id="tab">Clothing</li>
-              <li id="tab">Outfit</li>
-              <li id="tab">Makeup</li>
-              <li id="tab">Eureka</li>
-            </ul>
           </div>
         </div>
 
@@ -47,9 +47,7 @@ function App(props: any) {
           // currencyFilter={state.currencyFilter}
           dispatch={dispatch}
         />
-
       </div>
-     
     </>
   )
 }
