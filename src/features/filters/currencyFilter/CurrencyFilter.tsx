@@ -1,7 +1,6 @@
 import React from "react";
 import { currenciesData } from "../../../utilities/utilities";
 import { setCurrency } from "../currencyFilter/currencyFilterSlice";
-import '../filters.css';
 
 
 interface CurrencyProps {
@@ -9,7 +8,6 @@ interface CurrencyProps {
     currencyFilter: string
 }
 export const CurrencyFilter:  React.FC<CurrencyProps> = ({ currencyFilter, dispatch}) => {
-    console.log('Beginning Currency Filter: ', currencyFilter)
     let currency: string = '';
 
     const onClickHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {

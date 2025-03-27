@@ -1,10 +1,14 @@
 #inventory-container {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
     background-color: lightblue;
+    justify-content: center;
     width: 100%;
     height: auto;
+}
+
+#inventory-container.justify-end {
+    justify-content: flex-end;
 }
 
 h3 {

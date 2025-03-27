@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Cart } from '../cart/Cart';
 import { Inventory } from '../inventory/Inventory';
 import { SearchTerm } from '../searchTerm/SearchTerm';
-import { Filters } from '../filters/Filters';
+import { LabelFilter } from '../filters/labelFilter/LableFilter';
 import { CurrencyFilter } from '../filters/currencyFilter/CurrencyFilter';
 import './App.css'
 
@@ -10,6 +10,8 @@ import './App.css'
 function App(props: any) {
 
   const { state, dispatch } = props;
+    const [filterMenu, setFilterMenu] = useState<boolean>(false)
+  
   
   return (
     <>
@@ -30,22 +32,31 @@ function App(props: any) {
                 <li id="tab">Eureka</li>
               </ul>
           </div>
+
           <div className='featured-outfits'>
             <img src='./src/assets/featuredBanners/featuredOutfit-WishfulAurosa1.png'/>
           </div>
         </div>
 
-        <Filters/>
+        
+
         <SearchTerm 
           searchTerm={state.searchTerm}
           dispatch={dispatch}
+        />
+
+        <LabelFilter
+          dispatch={dispatch}
+          inventory={state.inventory}
         />
         
         <Inventory 
           inventory={state.inventory}
           currencyFilter={state.currencyFilter}
           searchTerm={state.searchTerm}
+          selectedLabels={state.labelFilter.selectedLabels}
           dispatch={dispatch}
+          filterMenu={filterMenu}
         />
 
         <Cart 

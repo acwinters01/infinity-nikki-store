@@ -3,12 +3,19 @@ export interface Item {
     name: string;
     price: number;
     quantity: number;
+    quality: number;
     stock: number,
     description: string;
     type: string;
     style: string;
     labels: string[];
     img: string;
+    item_type: string;
+    evolution: boolean;
+    evolution_name: string;
+    evolution_stage: number;
+    outfit: string;
+    color: string;
 };
 
 export const calculatePrice = (price: number, currency: string) => {
@@ -73,6 +80,43 @@ export const getFilteredItems = (items: any, searchTerm: string): Item[] => {
     })
 };
 
+export const getFilteredLabels = (
+    inventory: Item[],
+    selectedLabels: (string | number)[],
+
+): Item[] => {
+    if (selectedLabels.length === 0) return inventory;
+
+    return inventory.filter(item => {
+        const labelValues: (string | number)[] = [];
+        
+        // Considering labels with arrays
+        if (item.labels && item.labels.length > 0) {
+          labelValues.push(...item.labels);
+        }
+
+        // Add the all properties
+        if (item.color) labelValues.push(item.color);
+        if (item.style) labelValues.push(item.style);
+        if (item.item_type) labelValues.push(item.item_type);
+        if (item.outfit) labelValues.push(item.outfit);
+        if (item.quality !== undefined && item.quality !== null) labelValues.push(item.quality);
+    
+        // Checking if at least one of the selected labels matches any label.
+        return selectedLabels.some(label => {
+          if (typeof label === 'string') {
+            return labelValues.some(value =>
+              typeof value === 'string' && value.trim().toLowerCase() === label.trim().toLowerCase()
+            );
+
+          } else if (typeof label === 'number') {
+            return labelValues.some(value => typeof value === 'number' && value === label);
+          }
+          return false;
+
+        });
+      });
+}
 
 export const getTotal = (cart: Item[], currency: string): number => {
     // Had to figure out how to do this with minimal code. Using reduce sums the total price from each cart item.
@@ -81,6 +125,7 @@ export const getTotal = (cart: Item[], currency: string): number => {
 }
 
 export const currenciesData = ['USD', 'EUR', 'CAD', 'JPY', 'AUD', 'CNY', 'INR', 'GHS'];
+
 
 export const styleLabels = [
     { name: "Sweet", url: "./src/assets/labels/Sweet_Icon.png" },

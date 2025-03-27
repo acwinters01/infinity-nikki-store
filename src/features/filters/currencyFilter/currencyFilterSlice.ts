@@ -15,4 +15,4 @@ export const currencyFilterSlice = createSlice({
 })
 
 export const { setCurrency } = currencyFilterSlice.actions;
-export default currencyFilterSlice.reducer;
+export default currencyFilterSlice.reducer; 

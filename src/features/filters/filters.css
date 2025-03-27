@@ -1,29 +1,152 @@
 
-
 /* Currency Filter */
 .currency-filter-container {
     display: flex;
     width: 25%;
     justify-content: space-between;
+
 }
 
+/* Filter Container */
 
-/* Clothing Filters */
-.filters-dropdown-menu {
+#filter {
     display: flex;
     flex-direction: column;
-    margin: .75rem;
+    align-items: flex-start;
+}
+
+.filters-container {
+    position: absolute;
+    width: 15rem;
+    height: auto;
+   
+}
+
+.filters-container h4 {
+    justify-content: flex-start;
+}
+
+.filters-container-hidden {
+    position: sticky;
+    bottom: 16%;
+    width: 1rem;
+}
+
+.filters-container-hidden h3 {
+    display: none;
+}
+
+
+/* Filter Tab and Button Wrap */
+.filter-tab-button-wrap {
+    display: flex;
+
+}
+
+.filters-container-wrap {
+    position: fixed;
+    bottom: auto;
+    top: 70%;
+    width: 15rem;
+    height: auto;
+    overflow-y: auto;
+    z-index: 100;
+    transition: all 0.3s ease;
+    border: 2px solid red;
+}
+
+.filters-container-wrap-sticky {
+    position: fixed;
+    width: 15rem;
+    overflow-y: auto;
+    z-index: 50;
+    border: 2px solid red;
+    top: 18%;
+    max-height: 78vh;
+    transition: all 0.3s ease;
+    
+}
+
+
+/* All Filter Tabs */
+.filter-main-title-container {
+    background-color: palevioletred;
+    width: 100%;
+}
+
+
+/* Filter Toggle Button */
+
+.filter-toggle-button-small {
+    display: block;
+    background-color: chartreuse;
+    width: 3rem;
+    z-index: 101;
+    transition: all 0.3s ease;
+
+}
+
+.filter-toggle-button-big {
+    position: fixed;
+    top: 70%;
+    display: block;
+    width: 1.75rem;
+    height: 8rem;
+    background-color: chartreuse;
+    border-top-right-radius: .75rem;
+    border-bottom-right-radius: .75rem;
+    transition: all 0.3s ease;
+}
+
+
+
+/* Main Filter */
+/* .filters-dropdown-menu-open {
+    display: flex;
+    flex-direction: column;
     text-align: left;
-}
+    border: 3px solid pink;
+} */
 
-.filters-dropdown-menu h4 {
+/* .filters-dropdown-menu-open h4 {
     margin-top: .5rem;
+} */
+
+
+/*  All Tabs */
+#dropdown-menu{
+    background-color: aliceblue;
+    width: 100%;
 }
 
-.input-container {
+.filter-dropdown-menu-closed, 
+.outfit-filter-dropdown-menu-closed,
+.colors-filter-dropdown-menu-closed,
+.labels-filter-dropdown-menu-closed,
+.style-filter-dropdown-menu-closed,
+.type-filter-dropdown-menu-closed, 
+.quality-filter-dropdown-menu-closed {
+    display: none;
+}
+
+.filter-dropdown-menu-open,
+.outfit-filter-dropdown-menu-open,
+.colors-filter-dropdown-menu-open,
+.labels-filter-dropdown-menu-open,
+.style-filter-dropdown-menu-open,
+.type-filter-dropdown-menu-open, 
+.quality-filter-dropdown-menu-open {
     display: block;
 }
 
+/* Label Wrap Container */
+.input-container {
+    display: block;
+    margin: 1rem;
+    margin-right: 0rem;
+}
+
+/* Labels  */
 .label-container {
     display: flex;
     width: 5rem;
@@ -32,6 +155,24 @@
     justify-content: flex-end;
 }
 
+/* Check Boxe*/
 input {
     margin-right: .5rem;
 }
+
+
+
+/* Tab Toggle */
+h4.filter-tab-open, h4.filter-tab-closed {
+    background-color: yellow; 
+}
+ 
+h4.filter-tab-open {
+    display: none;
+}
+ 
+h4.filter-tab-closed {
+    display: block;
+}
+
+/*  */
