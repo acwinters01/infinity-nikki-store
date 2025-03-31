@@ -1,0 +1,14 @@
+#searchbar-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#search-icon {
+    width: 2.25%;
+    margin-right: .25rem;
+    align-self: center;
+}
+
+#clear-search-icon {
+    width: 3%;
+}

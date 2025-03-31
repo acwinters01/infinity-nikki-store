@@ -1,0 +1,33 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mainApp {
+  border: 2px solid black;
+  width: 100%;
+  height: 100%;
+}
+
+#header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+}
+
+#title-page {
+  font-size: 3rem;
+}
+
+
+li {
+  list-style: none;
+}
+
+#all-tabs {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 1.125rem
+}

@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import inventoryReducer from './features/inventory/inventorySlice';
-import cartReducer from './features/cart/cartSlice';
-import searchTermReducer from './features/searchTerm/searchTermSlice';
-import currencyFilterReducer from './features/filters/currencyFilter/currencyFilterSlice';
-import labelFilterReducer from './features/filters/labelFilter/labelFilterSlice';
+import inventoryReducer from './reducers/inventorySlice';
+import cartReducer from './reducers/cartSlice';
+import searchTermReducer from './reducers/searchTermSlice';
+import currencyFilterReducer from './reducers/currencyFilterSlice';
+import labelFilterReducer from './reducers/labelFilterSlice';
 
 
 export const store = configureStore({
@@ -17,3 +17,4 @@ export const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
