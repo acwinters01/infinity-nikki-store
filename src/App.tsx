@@ -1,29 +1,18 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
 import Home from './views/Home';
-import Outfits from './views/Outfits';
-import Makeup from './views/Makeup';
-import Eureka from './views/Eureka';
-import { store } from './store';
+import OutfitPage from './views/OutfitPage';
+import ItemZoom from './views/ItemZoom';
 import './styles/App.css'
 
 
 export const App: React.FC = () => {
   return (
-    <>
-      <BrowserRouter>
-        <Provider store={store}>
-            <Routes>
-              <Route path="/" element={<Home state = {store.getState()} dispatch = {store.dispatch}/>}>
-                <Route path="outfits" element={<Outfits />} />
-                <Route path="makeup" element={<Makeup />} />
-                <Route path="eureka" element={<Eureka />} />
-              </Route>
-            </Routes>
-        </Provider>
-      </BrowserRouter> 
-    </>
-  )
-}
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/OutfitZoom" element={<OutfitPage />} />
+      <Route path="/item/:name" element={<ItemZoom />} />
+    </Routes>
+  );
+};
 
-export default App
+export default App;

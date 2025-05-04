@@ -1,0 +1,21 @@
+/* #item-outfitPage {
+    display: flex;
+    flex-wrap: wrap;
+} */
+
+#item-outfitPage {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    grid-auto-rows: auto;
+    align-content: space-between;
+    /* gap: .5rem; */
+    width: 100%;
+}
+
+#item-image {
+    width: 100%;
+    height: auto;
+    border-radius: .5rem;
+    padding: .25rem;
+    background-color: white;
+}

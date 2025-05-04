@@ -20,6 +20,7 @@ export interface Item {
     outfit: string;
     color: string;
     outfit_type: string;
+    outfit_img_url: string;
 };
 
 type InventoryItem = {
@@ -65,6 +66,7 @@ export const calculatePrice = (price: number, currency: string) => {
 
 export const pricingItem = (item: InventoryItem): number => {
 
+
     const base = basePrices[item.type.toLowerCase()] || 0;
     const evolutionMod = evolutionModifiers[item.evolution_stage] || 0;
     const categoryMod = categoryModifiers[item.item_type] || 0;
@@ -89,6 +91,8 @@ export const pricingItem = (item: InventoryItem): number => {
 
 export const changeStockQuantity = (item: InventoryItem) => {
     const stockLimit = 11;
+    const random = Math.floor(Math.random() * stockLimit );
+    console.log(random)
     return Math.floor(Math.random() * stockLimit )
 
 }
@@ -116,15 +120,33 @@ export const getCurrencySymbol = (currencyFilter: string) => {
     }
 }
 
-export const getFilteredItems = (items: Item[], searchTerm: string): Item[] => {
-    if (!searchTerm) return items;
-        return items.filter((item: Item) => {
-            const nameMatch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-            const outfitMatch = item.outfit ? item.outfit.toLowerCase().includes(searchTerm.toLowerCase()) : false;
-            return nameMatch || outfitMatch
-    })
+// Get outfits based on search term using the outfit and clothing name
+export const getFilteredInventory = (
+    items: Item[], 
+    selectedLabels: (string | number)[],
+    searchTerm: string
+): Item[] => {
+    const labelFiltered = getFilteredLabels(items, selectedLabels);
+    const finalFiltered = getFilteredItems(labelFiltered, searchTerm);
+    return finalFiltered;
 };
 
+export const getFilteredItems = (
+    items: Item[],
+    searchTerm: string,
+): Item[] => {
+    if (!searchTerm) return items;
+
+        return items.filter((item: Item) => {
+            if(item.outfit && item.name) {
+                const nameMatch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+                const outfitMatch = item.outfit ? item.outfit.toLowerCase().includes(searchTerm.toLowerCase()) : false;
+                return nameMatch || outfitMatch
+            }    
+        })
+}
+
+// Get filtered labels and search with them in mind. 
 export const getFilteredLabels = (inventory: Item[], selectedLabels: (string | number)[] ): Item[] => {
     if (selectedLabels.length === 0) return inventory;
 
@@ -145,7 +167,6 @@ export const getFilteredLabels = (inventory: Item[], selectedLabels: (string | n
         if (item.quality !== undefined && item.quality !== null) labelValues.push(item.quality);
     
         // Checking if at least one of the selected labels matches any label.
-
         return selectedLabels.some(label => {
             if (typeof label === 'string') {
                 return labelValues.some(value =>
@@ -155,21 +176,22 @@ export const getFilteredLabels = (inventory: Item[], selectedLabels: (string | n
             } else if (typeof label === 'number') {
                 return labelValues.some(value => typeof value === 'number' && value === label);
             }
-                return false;
+            return false;
           
             });
         });
 }
 
+// Get the total price of items.
 export const getTotal = (cart: {[key: number]: Item }, currency: string): number => {
     // Had to figure out how to do this with minimal code. Using reduce sums the total price from each cart item.
     const totalUSD = Object.values(cart).reduce((sum, item) => sum + pricingItem(item) * item.quantity, 0);
     return parseFloat(calculatePrice(totalUSD, currency).toFixed(2));
 }
 
+// Adding commas after 3 digits
 export const addCommas = (num: (number | string)) => { 
     const formatted = Number(num).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
     return formatted;
 }
 
@@ -182,3 +204,48 @@ export const styleLabels = [
     { name: "Fresh", url: "./assets/labels/Fresh_Icon.png" },
     { name: "Sexy", url: "./assets/labels/Sexy_Icon.png" },
 ];
+
+interface OutfitInfo {
+    outfit: string;
+    style: string;
+    quality: number;
+}
+
+export const convertOutfitInfoToItems = (outfits: OutfitInfo[]): Item[] => {
+    return outfits.map(outfit => ({
+      outfit: outfit.outfit,
+      style: outfit.style,
+      quality: outfit.quality,
+      name: outfit.outfit,
+      labels: [outfit.style],  // This allows LabelFilter to filter by label
+      item_type: '',
+      color: '',
+      outfit_img_url: '', // Optional
+    } as Item));
+  };
+
+  export const extractUniqueOutfitsAsItems = (inventory: Item[]): Item[] => {
+    const seen = new Set();
+    const result: Item[] = [];
+  
+    for (const item of inventory) {
+      if (!item.outfit || !item.style || item.quality == null) continue;
+  
+      const key = `${item.outfit}-${item.style}-${item.quality}`;
+      if (!seen.has(key)) {
+        result.push({
+          outfit: item.outfit,
+          style: item.style,
+          quality: item.quality,
+          name: item.outfit,
+          labels: [''],
+          color: '',
+          item_type: '',
+          outfit_img_url: item.outfit_img_url ?? '',
+        } as Item);
+        seen.add(key);
+      }
+    }
+  
+    return result;
+  };

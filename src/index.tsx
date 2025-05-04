@@ -1,25 +1,19 @@
-import React, { StrictMode } from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { createRoot } from 'react-dom/client'
 import App from './App';
 import { store } from './store';
 import './utilities/reset.css'
 
-const rootElement = (document.getElementById('root'));
 
-// Because tsx is dumb and wants me to make sure rootElement is not null. 
-
-if (!rootElement) {
-  throw new Error("Root element not found");
-}
-
+// Keep saying it could be null, had to look it up. '! says: I promise this is not null'
+const rootElement = document.getElementById('root')!;
 const root = createRoot(rootElement);
-const render = () => {
-  root.render(
-    <StrictMode>
-      <App />
-    </StrictMode>
-  )
-};
 
-render();
-store.subscribe(render)
+root.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
+);

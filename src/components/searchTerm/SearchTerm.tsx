@@ -4,8 +4,8 @@ import { AppDispatch } from '../../store';
 import '../../styles/searchTerm.css'
 
 
-const searchIcon: string = './src/assets/svgs/search-icon.svg';
-const clearIcon: string = './src/assets/svgs/close-line-icon.svg';
+const searchIcon: string = './assets/svgs/search-icon.svg';
+const clearIcon: string = './assets/svgs/close-line-icon.svg';
 
 interface SearchTermProps {
     dispatch: AppDispatch;
@@ -26,6 +26,7 @@ export const SearchTerm: React.FC<SearchTermProps> = ({ searchTerm, dispatch}) =
 
     return (
         <div id="searchbar-container">
+            <img id="search-icon" alt='' src={searchIcon}/>
             <input 
                 id="search"
                 type="text"
@@ -42,8 +43,6 @@ export const SearchTerm: React.FC<SearchTermProps> = ({ searchTerm, dispatch}) =
                     <img src={clearIcon} alt="" />
                 </button>
             )}
-
-            <img id="search-icon" alt='' src={searchIcon}/>
         </div>
     );
 }

@@ -3,6 +3,7 @@ import { Inventory } from '../components/inventory/Inventory';
 import { SearchTerm } from '../components/searchTerm/SearchTerm';
 import FeaturedOutfits from '../components/featuredOutfits/FeaturedOutfits';
 import { CurrencyFilter } from '../components/currencyFilter/CurrencyFilter';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../store';
 import '../styles/App.css'
 
@@ -11,36 +12,44 @@ interface AppProps {
   dispatch: AppDispatch;
 }
 
-export const Home: React.FC<AppProps> = ({ state, dispatch }) => {
+export const Home: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const cart = useSelector((state: RootState) => state.cart)
+  const inventory = useSelector((state: RootState) => state.inventory.inventory);
+  const currencyFilter = useSelector((state: RootState) => state.currencyFilter);
+  const searchTerm = useSelector((state: RootState) => state.searchTerm);
+  const selectedLabels = useSelector((state: RootState) => state.labelFilter.selectedLabels);
   return (
     <>
       <div className='mainApp'>
         <div id="header">
           <p id='title-page'>Infinity Store</p>
+
           <CurrencyFilter 
             dispatch={dispatch}
-            currencyFilter={state.currencyFilter}
+            currencyFilter={currencyFilter}
           />
+
           <FeaturedOutfits/>
 
         </div>
 
         <SearchTerm 
-          searchTerm={state.searchTerm}
+          searchTerm={searchTerm}
           dispatch={dispatch}
         />
         
         <Inventory 
-          inventory={state.inventory}
-          currencyFilter={state.currencyFilter}
-          searchTerm={state.searchTerm}
-          selectedLabels={state.labelFilter.selectedLabels}
+          inventory={inventory}
+          currencyFilter={currencyFilter}
+          searchTerm={searchTerm}
+          selectedLabels={selectedLabels}
           dispatch={dispatch}
         />
 
         <Cart 
-          cart={state.cart}
-          currencyFilter={state.currencyFilter}
+          cart={cart}
+          currencyFilter={currencyFilter}
           dispatch={dispatch}
         />
       </div>

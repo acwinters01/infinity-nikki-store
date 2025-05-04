@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import LabelFilter from '../labelFilter/LabelFilter';
 import { fetchInventory } from '../../reducers/inventorySlice';
 import { addItem } from '../../reducers/cartSlice';
-import { calculatePrice, getCurrencySymbol, getFilteredItems, 
-    getFilteredLabels, Item, pricingItem, addCommas, styleLabels } from '../../utilities/utilities';
+import { calculatePrice, getCurrencySymbol, getFilteredInventory, 
+    Item, pricingItem, addCommas, styleLabels, 
+    } from '../../utilities/utilities';
 import { AppDispatch } from '../../store';
 import '../../styles/inventory.css'
 
@@ -20,7 +21,7 @@ interface InventoryProps {
 
 export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter, dispatch, searchTerm, selectedLabels }) => {
     
-    let isSoldOut: boolean = false;
+    let soldOut: boolean = true;
     useEffect(() => {
         dispatch(fetchInventory())
     }, [dispatch]);  
@@ -29,8 +30,9 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
         return <p id="all-products-sold-label">Sorry we don't have anything to show just yet.</p>;
     };
 
-    const filteredItems = getFilteredItems(inventory, searchTerm);
-    let filteredItemsBySearch = getFilteredLabels(filteredItems, selectedLabels);
+    const filteredItemsBySearch: Item[] = Array.isArray(inventory)
+    ? getFilteredInventory(inventory, selectedLabels, searchTerm) || []
+    : [];
 
     /*
         console.log("FilteredItems: ", filteredItems)
@@ -40,6 +42,8 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
         console.log('Total number of Filtered Items: ', filteredItemsBySearch.length)
     */
 
+        // console.log("filteredItemsBySearch", filteredItemsBySearch);
+
     return (
         <div className='inventory-wrap'>
             <div className='tabs-container'>
@@ -48,10 +52,7 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
                         <Link to="/">Home</Link>
                     </li>
                     <li id="tab">
-                        <Link to="/Outfits">Outfits</Link>
-                    </li>
-                    <li id="tab">
-                        <Link to="/Makeup">Makeup</Link>
+                        <Link to="/OutfitZoom">Outfits</Link>
                     </li>
                     <li id="tab">
                         <Link to="/Eureka">Eureka</Link>
@@ -64,8 +65,13 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
                     inventory={inventory}
                 />
                 <ul id="inventory-container">
-                    {filteredItemsBySearch.length !== 0 ? filteredItemsBySearch.map(createInventoryItem): filteredItems.map(createInventoryItem)}
+                    {filteredItemsBySearch.length > 0 && 
+                    filteredItemsBySearch.map(createInventoryItem)}
+
+                    {filteredItemsBySearch.length === 0 &&
+                    < p id="no-results">No items found</p>}
                 </ul>
+            
             </div>
         </div>
     );
@@ -82,14 +88,15 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
             priceContent =  <div id="low-stock"> 
                                 {inventoryItem.stock} left in stock, Buy Soon!
                             </div>; 
-            isSoldOut = false;
+                 
+            soldOut = false;
             
         } else if (inventoryItem.stock === 0 ) {
             priceContent = <p id="sold-out">SOLD OUT!</p>
-            isSoldOut = true;
+            soldOut = true;
 
         } else {
-            isSoldOut = false;
+            soldOut = false;
         }
 
         if (inventoryItem.style) {
@@ -102,10 +109,8 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
             })
         }
 
-        console.log(inventoryItem.img)
-
         return (
-            <li key={inventoryItem.id} className={`item`} id={`${isSoldOut ? 'sold' : null}`}>
+            <li key={inventoryItem.id} className={`item`} id={`${soldOut ? 'sold' : null}`}>
                 <div id="item-titling">
                     <h3 className='item-name'>{inventoryItem.name}</h3>
                     <div className='labels'>
@@ -136,7 +141,8 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
     };
 
     function handleOnClick(inventoryItem: Item) {
-        if (!isSoldOut) {
+        console.log(soldOut )
+        if (soldOut) {
             dispatch(addItem(inventoryItem));
         } else {
             console.log('Item sold out: ', inventoryItem)
