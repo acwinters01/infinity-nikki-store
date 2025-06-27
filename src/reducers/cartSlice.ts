@@ -31,9 +31,24 @@ export const cartSlice = createSlice({
                 [name]: { ...state[name], quantity: newQuantity}
             }
         },
+
+        addAll: (state, action: PayloadAction<Item[]>) => {
+            const items = action.payload;
+            
+            items.forEach(item => {
+                const name = item.name;
+                if(!state[name]) {
+                    state[name] = { ...item, quantity: 1 };
+
+                } else {
+                    state[name].quantity += 1;
+                }
+            });
+
+        }
     },
 });
 
 
-export const { addItem, changeItemQuantity } = cartSlice.actions; // Actions
+export const { addAll, addItem, changeItemQuantity } = cartSlice.actions; // Actions
 export default cartSlice.reducer; // Reducer

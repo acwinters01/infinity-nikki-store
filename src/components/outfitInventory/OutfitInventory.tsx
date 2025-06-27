@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
-import { LabelFilter } from '../labelFilter/LabelFilter'
-import { getFilteredInventory, styleLabels, Item, extractUniqueOutfitsAsItems } from '../../utilities/utilities';
+import React, { useEffect, useState } from 'react';
+import LabelFilter from '../labelFilter/LabelFilter';
+import { getFilteredInventory, styleLabels, Item, extractUniqueOutfitsAsItems, defaultClothingPic } from '../../utilities/utilities';
 import { fetchInventory, getOutfits } from '../../reducers/inventorySlice';
 import { AppDispatch } from '../../store';
+import { Test } from '../../views/TestPage';
 import '../../styles/oufitInventoryPage.css'
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
@@ -16,6 +18,7 @@ interface InventoryProps {
 };
 
 export const OutfitInventory: React.FC<InventoryProps> = ({ inventory, dispatch, searchTerm, selectedLabels}) => {
+    const navigate = useNavigate();
     const selectedOutfits = inventory;
     const outfitNames: Item[] = [];
 
@@ -54,6 +57,19 @@ export const OutfitInventory: React.FC<InventoryProps> = ({ inventory, dispatch,
     const currentOutfitInventory = extractUniqueOutfitsAsItems(inventory);
     const filteredOutfits = getFilteredInventory(currentOutfitInventory, selectedLabels, searchTerm);
 
+    console.log('currentOutfitInventory', currentOutfitInventory)
+    const handleOnClick = (outfit: Item) => {
+      const fullOutfitSet = outfitGroup[outfit.outfit]
+      console.log(fullOutfitSet)
+      navigate('/Test', { 
+        state: { 
+          selectedOutfit: outfit, 
+          textName: outfit.name, 
+          outfitItems: fullOutfitSet,
+        } 
+      });
+      
+    }
 
     return (
         <div className='filter-inventory'>
@@ -62,9 +78,13 @@ export const OutfitInventory: React.FC<InventoryProps> = ({ inventory, dispatch,
           <ul id="inventory-container">
             {filteredOutfits.length > 0 ? (
               filteredOutfits.map((item: Item, index: number) => (
-                <li key={index} className="item">
+                <li key={index} className="item" onClick={() => handleOnClick(item)}>
                   <h3 className="item-name">{item.outfit}</h3>
-                  <img id="item-image" src={item.outfit_img_url || ''} alt={item.outfit} />
+                  <img
+                    id="item-image"
+                    src={Array.isArray(item.outfit_img_url) ? item.outfit_img_url[0] : item.outfit_img_url || defaultClothingPic}
+                    alt={item.outfit}
+                  />
                   <div className='labels'>
                     {styleLabels
                       .filter(label => label.name === item.style)
@@ -79,7 +99,7 @@ export const OutfitInventory: React.FC<InventoryProps> = ({ inventory, dispatch,
             )}
           </ul>
         </div>
-      );
+    );
 }
 
 
