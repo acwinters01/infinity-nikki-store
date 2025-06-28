@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Cart } from '../components/cart/Cart';
-import { Inventory } from '../components/inventory/Inventory';
 import  { OutfitInventory } from '../components/outfitInventory/OutfitInventory';
 import { SearchTerm } from '../components/searchTerm/SearchTerm';
 import { AppDispatch, RootState } from '../store';
@@ -18,7 +16,6 @@ export const OutfitPage: React.FC = () => {
 
     console.log(selectedOutfits)
     
-
     return (
         <div>
             <p>Outfit Page</p>
@@ -34,10 +31,10 @@ export const OutfitPage: React.FC = () => {
                         <Link to="/">Home</Link>
                     </li>
                     <li id="tab">
-                        <Link to="/OutfitZoom">Outfits</Link>
+                        <Link to="/OutfitPage">Outfits</Link>
                     </li>
                     <li id="tab">
-                        <Link to="/Eureka">Eureka</Link>
+                        <Link to="/EurekaPage">Eureka</Link>
                     </li>
                 </ul>
             </div>

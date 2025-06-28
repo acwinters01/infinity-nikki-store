@@ -4,13 +4,10 @@ import { SearchTerm } from '../components/searchTerm/SearchTerm';
 import FeaturedOutfits from '../components/featuredOutfits/FeaturedOutfits';
 import { CurrencyFilter } from '../components/currencyFilter/CurrencyFilter';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { AppDispatch, RootState } from '../store';
 import '../styles/App.css'
 
-interface AppProps {
-  state: RootState;
-  dispatch: AppDispatch;
-}
 
 export const Home: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,14 +21,24 @@ export const Home: React.FC = () => {
       <div className='mainApp'>
         <div id="header">
           <p id='title-page'>Infinity Store</p>
-
           <CurrencyFilter 
             dispatch={dispatch}
             currencyFilter={currencyFilter}
           />
-
+          <div className='tabs-container'>
+                <ul id='all-tabs'>
+                    <li id="tab">
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li id="tab">
+                        <Link to="/OutfitPage">Outfits</Link>
+                    </li>
+                    <li id="tab">
+                        <Link to="/EurekaPage">Eureka</Link>
+                    </li>
+                </ul>
+          </div>
           <FeaturedOutfits/>
-
         </div>
 
         <SearchTerm 

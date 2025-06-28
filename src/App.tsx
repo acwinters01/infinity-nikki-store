@@ -1,7 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './views/Home';
 import OutfitPage from './views/OutfitPage';
-import ItemZoom from './views/ItemZoom';
+import EurekaPage from './views/EurekaPage';
+import { Test } from './views/TestPage';
 import './styles/App.css'
 
 
@@ -9,8 +10,10 @@ export const App: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/OutfitZoom" element={<OutfitPage />} />
-      <Route path="/item/:name" element={<ItemZoom />} />
+      <Route path="/OutfitPage" element={<OutfitPage />} />
+      <Route path="/EurekaPage" element={<EurekaPage />} />
+      <Route path="/Test" element={<Test />} />
+      {/* <Route path="/item/:name" element={<EurekaPage />} /> */}
     </Routes>
   );
 };

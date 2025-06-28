@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import LabelFilter from '../labelFilter/LabelFilter';
 import { fetchInventory } from '../../reducers/inventorySlice';
 import { addItem } from '../../reducers/cartSlice';
@@ -46,19 +45,6 @@ export const Inventory: React.FC<InventoryProps> = ({ inventory, currencyFilter,
 
     return (
         <div className='inventory-wrap'>
-            <div className='tabs-container'>
-                <ul id='all-tabs'>
-                    <li id="tab">
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li id="tab">
-                        <Link to="/OutfitZoom">Outfits</Link>
-                    </li>
-                    <li id="tab">
-                        <Link to="/Eureka">Eureka</Link>
-                    </li>
-                </ul>
-            </div>
             <div className='filter-inventory'>
                 <LabelFilter
                     dispatch={dispatch}

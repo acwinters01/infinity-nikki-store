@@ -28,7 +28,9 @@ const FeaturedOutfits: React.FC = () => {
     }, [])
 
     const handleOnClick = () => {
+        
     }
+
     return (
         <div className='featured-outfits-container'>
             <div className="featured-outfits">
