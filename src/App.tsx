@@ -4,6 +4,7 @@ import OutfitPage from './views/OutfitPage';
 import EurekaPage from './views/EurekaPage';
 import { Test } from './views/TestPage';
 import './styles/App.css'
+import { InventoryForm } from './components/inventory/InventoryForm';
 
 
 export const App: React.FC = () => {
@@ -13,6 +14,7 @@ export const App: React.FC = () => {
       <Route path="/OutfitPage" element={<OutfitPage />} />
       <Route path="/EurekaPage" element={<EurekaPage />} />
       <Route path="/Test" element={<Test />} />
+      <Route path="/Form" element={<InventoryForm />} />
       {/* <Route path="/item/:name" element={<EurekaPage />} /> */}
     </Routes>
   );

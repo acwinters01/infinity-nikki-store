@@ -36,6 +36,9 @@ export const Home: React.FC = () => {
                     <li id="tab">
                         <Link to="/EurekaPage">Eureka</Link>
                     </li>
+                    <li id="tab">
+                        <Link to="/Form">Form</Link>
+                    </li>
                 </ul>
           </div>
           <FeaturedOutfits/>
