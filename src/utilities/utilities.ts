@@ -2,7 +2,7 @@ import { basePrices, categoryModifiers, styleModifiers, qualityModifiers,
      evolutionModifiers, labelModifiers, outfitTypeModifiers } from './modifiers';
 
 export interface Item {
-    id: number;
+    id?: number;
     name: string;
     price: number;
     quantity: number;
