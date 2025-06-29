@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import LabelFilter from '../labelFilter/LabelFilter';
 import { getFilteredInventory, styleLabels, Item, extractUniqueOutfitsAsItems, defaultClothingPic } from '../../utilities/utilities';
 import { fetchInventory, getOutfits } from '../../reducers/inventorySlice';
 import { AppDispatch } from '../../store';
-import { Test } from '../../views/TestPage';
 import '../../styles/oufitInventoryPage.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 

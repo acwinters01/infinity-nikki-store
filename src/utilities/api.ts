@@ -52,7 +52,7 @@ export const getOutfitItems = async (outfit: string) => {
 };
 
 // Add a new item
-export const addInventoryItem = async (item: any) => {
+export const addInventoryItem = async (item: Item) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/inventory`, item);
     return response.data;
@@ -63,7 +63,7 @@ export const addInventoryItem = async (item: any) => {
 };
 
 // Update an item
-export const updateInventoryItem = async (id: number, item: any) => {
+export const updateInventoryItem = async (id: number, item: Item) => {
   try {
     const response = await axios.put(`${API_BASE_URL}/inventory/${id}`, item);
     return response.data;

@@ -42,19 +42,44 @@ const LabelFilter: React.FC<FilterProps> = ({ dispatch, inventory }) => {
         setMenus(prev => ({ ...prev, [menu]: !prev[menu] }));
     };
 
-    const extractUniqueLabels = <T,>(key: keyof Item, mapFn: (val: any) => T = val => val): T[] => {
-        return inventory.reduce((acc: T[], item) => {
-            const val = item[key];
-            if (val) {
-                const values = Array.isArray(val) ? val : [val];
-                for (const v of values) {
-                    const mapped = mapFn(v);
-                    if (mapped && !acc.includes(mapped)) acc.push(mapped);
+    // Satisfying TypeScript wanting to specify val as a type
+    const extractUniqueLabels = <
+        K extends keyof Item,                                   // K = name of a field in item
+        Raw = Item[K] extends (infer U)[] ? U : Item[K],        // Considers Item[K] is an array. If it is extract the type to U, if not use the type given
+        T = Raw> (                                              // T = the return of the above
+            key: K,
+            mapFn: (val: Raw) => T = val => val as unknown as T // Standard mapping, "TypeScript just do it please"
+        ): T[] => {
+
+            return inventory.reduce((acc: T[], item) => {
+                const val = item[key];
+                if (val) {
+                    const values = Array.isArray(val) ? val : [val];    // Turn the values into an array
+                    for (const v of values) {                           
+                        const mapped = mapFn(v);
+                        if (mapped && !acc.includes(mapped)) acc.push(mapped);  // If truthy and value is not already in the array push
+                    }
                 }
-            }
-            return acc;
+                return acc;
         }, []);
     };
+
+    // const extractUniqueLabels = <
+    //     T,>(key: keyof Item, 
+    //     mapFn: (val: any) => T = val => val): T[] => {
+
+    //         return inventory.reduce((acc: T[], item) => {
+    //             const val = item[key];
+    //             if (val) {
+    //                 const values = Array.isArray(val) ? val : [val];
+    //                 for (const v of values) {
+    //                     const mapped = mapFn(v);
+    //                     if (mapped && !acc.includes(mapped)) acc.push(mapped);
+    //                 }
+    //             }
+    //             return acc;
+    //     }, []);
+    // };
 
     const outfitLabels: string[] = extractUniqueLabels('outfit');
     const colorLabels: string[] = extractUniqueLabels('color');

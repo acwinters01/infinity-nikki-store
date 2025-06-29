@@ -4,10 +4,10 @@ import "../../styles/featuredOutfits.css"
 
 const FeaturedOutfits: React.FC = () => {
 
-    const images = [".wishfulA1", ".wishfulA2", ".flutterS1", ".flutterS2"];
 
     useEffect(() => {
-        let tl = gsap.timeline({ repeat: -1, repeatDelay: 0});
+        const images = [".wishfulA1", ".wishfulA2", ".flutterS1", ".flutterS2"];
+        const tl = gsap.timeline({ repeat: -1, repeatDelay: 0});
 
         // Making sure to have the first images visible when app is loaded
         tl.set(images[0], { opacity: 1 })
@@ -27,9 +27,10 @@ const FeaturedOutfits: React.FC = () => {
            
     }, [])
 
-    const handleOnClick = () => {
+    // Future feature to link featured outfits to the outfit page. 
+    // const handleOnClick = () => {
         
-    }
+    // }
 
     return (
         <div className='featured-outfits-container'>

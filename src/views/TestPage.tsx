@@ -1,12 +1,8 @@
 
-import { Cart } from '../components/cart/Cart';
 import { Link, useLocation } from 'react-router-dom';
-import { Inventory } from '../components/inventory/Inventory';
-import { SearchTerm } from '../components/searchTerm/SearchTerm';
-import FeaturedOutfits from '../components/featuredOutfits/FeaturedOutfits';
 import { OutfitTile } from '../components/outfitTile/OutfitTile';
-import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatch, RootState } from '../store';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../store';
 import { Item } from '../utilities/utilities'
 
 
