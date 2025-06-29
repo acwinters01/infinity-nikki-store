@@ -111,12 +111,13 @@ describe("inventoryForm component", () => {
   });
 });
 
-describe("Tests inventoryForm connection with Database via API", () => {
-  it("submits form and calls real API", async() => {
+// Future Test
+// describe("Tests inventoryForm connection with Database via API", () => {
+//   it("submits form and calls real API", async() => {
 
-  });
+//   });
 
-  it("prevents adding duplicate item", async() => {
-    
-  })
-})
+//   it("prevents adding duplicate item", async() => {
+
+//   })
+// })

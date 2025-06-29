@@ -33,9 +33,11 @@ export const InventoryForm = ({ existingItem, onSuccess }: InventoryFormProps ) 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     const numericFields = ['price', 'stock', 'quantity', 'evolution_stage', 'quality'];
-    setFormData((prev: any) => ({
+
+    const clothing_item = name as keyof Item;
+    setFormData((prev: Item) => ({
         ...prev,
-        [name]: type === 'checkbox' ? checked : 
+        [clothing_item]: type === 'checkbox' ? checked : 
             numericFields.includes(name) ? parseFloat(value) || 0 :
             value,   
     }));
@@ -43,7 +45,6 @@ export const InventoryForm = ({ existingItem, onSuccess }: InventoryFormProps ) 
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
         let response;
         
         if(existingItem?.id !== undefined) {
@@ -87,7 +88,7 @@ export const InventoryForm = ({ existingItem, onSuccess }: InventoryFormProps ) 
                 name="labels"
                 value={formData.labels.join(',')}
                 onChange={(e) =>
-                    setFormData((prev: any) => ({
+                    setFormData((prev: Item) => ({
                     ...prev,
                     labels: e.target.value.split(',').map(s => s.trim()),
                     }))
@@ -124,7 +125,7 @@ export const InventoryForm = ({ existingItem, onSuccess }: InventoryFormProps ) 
                 name="outfit_img_url"
                 value={formData.outfit_img_url.join(',')}
                 onChange={(e) =>
-                    setFormData((prev: any) => ({
+                    setFormData((prev: Item) => ({
                     ...prev,
                     outfit_img_url: e.target.value.split(',').map(s => s.trim()),
                     }))

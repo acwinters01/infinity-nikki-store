@@ -89,6 +89,8 @@ export const pricingItem = (item: InventoryItem): number => {
     const labelTotal = labelMods.reduce((sum, mod) => sum + mod, 0);
     const miracleMod = outfitTypeModifiers[item.outfit_type] || 0;
     const priceTotal = base + evolutionMod + categoryMod + styleMod + quality + miracleMod + labelTotal;
+
+    /* Debugging  */
     // console.log("Item: ", item);
     // console.log('Base: ', base);
     // console.log('Category: ', categoryMod);
@@ -102,13 +104,14 @@ export const pricingItem = (item: InventoryItem): number => {
 
 }
 
-export const changeStockQuantity = (item: InventoryItem) => {
-    const stockLimit = 11;
-    const random = Math.floor(Math.random() * stockLimit );
-    console.log(random)
-    return Math.floor(Math.random() * stockLimit )
+/*  Future feature where the site changes stock quantity daily */
+// export const changeStockQuantity = () => {
+//     const stockLimit = 11;
+//     const random = Math.floor(Math.random() * stockLimit );
+//     console.log(random)
+//     return Math.floor(Math.random() * stockLimit )
 
-}
+// }
 
 export const getCurrencySymbol = (currencyFilter: string) => {
     switch (currencyFilter) {

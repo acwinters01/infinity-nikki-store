@@ -9,7 +9,7 @@ interface CurrencyProps {
     currencyFilter: string
 }
 export const CurrencyFilter:  React.FC<CurrencyProps> = ({ currencyFilter, dispatch}) => {
-    let currency: string = '';
+    const currency: string = '';
 
     const onClickHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const newCurrency = e.target.value;

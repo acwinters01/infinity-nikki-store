@@ -14,7 +14,7 @@ interface TileProp {
     outfitItems: Item[];
 }
 
-export const OutfitTile: React.FC<TileProp> = ({ dispatch, selectedOutfit, textName, outfitItems}) => {
+export const OutfitTile: React.FC<TileProp> = ({ dispatch, selectedOutfit, outfitItems}) => {
     const searchTerm = useSelector((state: RootState) => state.searchTerm);
     const selectedLabels = useSelector((state: RootState) => state.labelFilter.selectedLabels);
     const currencyFilter = useSelector((state: RootState) => state.currencyFilter);
@@ -30,7 +30,7 @@ export const OutfitTile: React.FC<TileProp> = ({ dispatch, selectedOutfit, textN
 
     useEffect(() => {
         const allStages = [...new Set(outfitItems.map(item => item.evolution_stage))].sort((a, b) => a - b);
-        for (let stage of allStages) {
+        for (const stage of allStages) {
             if (outfitItems.some(item => item.evolution_stage === stage)) {
                 setCurrentStage(stage);
                 break;
@@ -61,7 +61,7 @@ export const OutfitTile: React.FC<TileProp> = ({ dispatch, selectedOutfit, textN
 
     const handleNextEvolution = () => {
         const allStages = [...new Set(outfitItems.map(item => item.evolution_stage))].sort((a, b) => a - b);
-        let currentIndex = allStages.indexOf(currentStage);
+        const currentIndex = allStages.indexOf(currentStage);
         // while (currentIndex < allStages.length - 1) {
         //     const nextStage = allStages[currentIndex + 1];
         //     const hasItems = outfitItems.some(item => item.evolution_stage === nextStage);
@@ -85,7 +85,7 @@ export const OutfitTile: React.FC<TileProp> = ({ dispatch, selectedOutfit, textN
 
     const handlePrevEvolution = () => {
         const allStages = [...new Set(outfitItems.map(item => item.evolution_stage))].sort((a, b) => a - b);
-        let currentIndex = allStages.indexOf(currentStage);
+        const currentIndex = allStages.indexOf(currentStage);
 
         if (currentIndex > 0) { 
             const prevStage = allStages[currentIndex - 1];
